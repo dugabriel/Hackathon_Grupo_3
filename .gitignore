@@ -6,3 +6,4 @@ wcm/widget/*/target
 .idea
 .iml
 java/start-process/.idea
+.metadata
