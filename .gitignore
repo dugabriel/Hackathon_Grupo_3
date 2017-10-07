@@ -1,0 +1,7 @@
+.project
+.svn
+.settings
+.tern-project
+wcm/widget/*/target
+.idea
+.iml
