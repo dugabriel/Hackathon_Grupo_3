@@ -14,6 +14,8 @@ import services.net.java.dev.jaxb.array.StringArrayArray;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -26,6 +28,8 @@ public class ECMWorkflowEngineService {
     String requestComment = "starting with webservice";
     int tenantId = 1;
     int limit = 10;
+    List<String> requesters = Arrays.asList("marcelo.fortunato", "andre.timm", "rafael.vanat");
+    List<String> approvers = Arrays.asList("robson","mateus");
 
     WorkflowEngineService workflowEngineService = instanceWorkflowEngineService();
 
@@ -76,39 +80,77 @@ public class ECMWorkflowEngineService {
     private StringArrayArray createFormFieldStringValue() {
         StringArrayArray stringArrayArray = new StringArrayArray();
 
+        /*
+            EMPRESA
+         */
+
         StringArray cnpj = new StringArray();
         cnpj.getItem().add("cnpj"); // nome do campo.
         cnpj.getItem().add("32963043000240"); // valor do campo.
+
+        stringArrayArray.getItem().add(cnpj);
 
         StringArray empresa = new StringArray();
         empresa.getItem().add("empresa"); // nome do campo.
         empresa.getItem().add("AGROPECUARIA ESTEIO INVESTIMENTOS E PARTICIPAÇÕES"); // valor do campo.
 
-        //String produto = this.getRandomProduct();
-
-        StringArray produto = new StringArray();
-        empresa.getItem().add("produto"); // nome do campo.
-        empresa.getItem().add("AGROPECUARIA ESTEIO INVESTIMENTOS E PARTICIPAÇÕES"); // valor do campo.
-
-        stringArrayArray.getItem().add(cnpj);
         stringArrayArray.getItem().add(empresa);
+
+        /*
+            PRODUTO RAMDOM
+         */
+        String[] RandomProduto = this.getRandomProduct();
+
+        System.out.println("Produto: " + RandomProduto.toString());
+        StringArray produto = new StringArray();
+        produto.getItem().add("produto"); // nome do campo.
+        produto.getItem().add(RandomProduto[0]); // valor do campo.
+
+        stringArrayArray.getItem().add(produto);
+
+        StringArray valor = new StringArray();
+        valor.getItem().add("valor"); // nome do campo.
+        valor.getItem().add(RandomProduto[1]); // valor do campo.
+
+        stringArrayArray.getItem().add(valor);
+
+
+        /*
+         REQUISITANTE
+          */
+        Random randomRequester = new Random();
+        String requester = requesters.get(randomRequester.nextInt(requesters.size()));
+
+        System.out.println("Requisitante: " + requester);
+        StringArray requisitante = new StringArray();
+        requisitante.getItem().add("requisitante"); // nome do campo.
+        requisitante.getItem().add(requester); // valor do campo.
+
+        stringArrayArray.getItem().add(requisitante);
+
+
+
+
+
+
+
 
         return stringArrayArray;
     }
 
-    private String getRandomProduct() throws IOException{
-
+    private String[] getRandomProduct(){
+        String[] product = null;
         try {
             List<String> products = Files.readAllLines(Paths.get("database/product2.txt"));
 
             Random random = new Random();
 
-            return products.get(random.nextInt(products.size()));
+            product =  products.get(random.nextInt(products.size())).split("#");
         }catch (IOException e) {
-
+            System.out.println(e.toString());
         }
 
-
+        return product;
     }
 
     private ProcessAttachmentDtoArray createProcessAttachment() {
