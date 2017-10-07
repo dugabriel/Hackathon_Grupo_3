@@ -4,13 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.fluig</groupId>
-        <artifactId>wcm-widget</artifactId>
-        <version>1.6.1-SNAPSHOT</version>
-    </parent>
+    <groupId>com.fluig</groupId>
+    <version>1.6.1-SNAPSHOT</version>
     <artifactId>hackathon</artifactId>
     <packaging>war</packaging>
+
+    <!--Não foi possível utilizar a lib dependencies do fluig. HARDCODE versão-->
 
     <name>Fluig Hackathon v2</name>
     <description>Fluig Hackathon v2</description>
@@ -28,6 +27,7 @@
         <dependency>
             <groupId>com.fluig</groupId>
             <artifactId>wcm-sdk-service</artifactId>
+            <version>1.6.1</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -37,11 +37,13 @@
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
