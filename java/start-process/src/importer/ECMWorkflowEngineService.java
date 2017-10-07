@@ -16,17 +16,20 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ECMWorkflowEngineService {
-    String fluigURL = "http://hack:8080";
+    //String fluigURL = "http://hack:8080";
+    String fluigURL = "http://fluig03.hackathon2017.fluig.io:8080";
     String userId = "bob";
     String userLogin = "bob";
     String userPassword = "adm";
     String processId = "aprovacao-compra";
     String requestComment = "Favor analisar a requisição de compra";
     int tenantId = 1;
-    int limit = 1;
+    int limit = 1000;
     List<String> requesters = Arrays.asList("marcelo.fortunato", "andre.timm", "rafael.vanat");
     List<String> approvers = Arrays.asList("robson","mateus","maria");
     List<String> approve = Arrays.asList("s","n");
+    String cnpj = "53113791000122";
+    String empresa = "TOTVS S.A.";
 
     WorkflowEngineService workflowEngineService = instanceWorkflowEngineService();
 
@@ -46,7 +49,7 @@ public class ECMWorkflowEngineService {
     }
 
     private void simpleStartProcess() throws Exception{
-        System.out.println("\nIniciando simpleStartProcess()\n");
+        System.out.println("\nIniciando StartProcess()\n");
 
 
         for (int i = 0; i < this.limit; i++) {
@@ -55,6 +58,7 @@ public class ECMWorkflowEngineService {
                     this.tenantId, this.processId, this.requestComment,
                     this.createProcessAttachment(), this.createFormFieldStringValue());
             */
+            System.out.println("\n########### Solicitação: " + i +"\n\n");
 
             StringArrayArray resultArray = workflowEngineService.startProcess(this.userLogin,
                     this.userPassword, this.tenantId, this.processId, 5, this.createDestinationUser(),
@@ -65,7 +69,7 @@ public class ECMWorkflowEngineService {
                 System.out.println(result.getItem().get(0) + ": " + result.getItem().get(1));
             }
 
-            Thread.sleep(500);
+            Thread.sleep(200);
         }
 
 
@@ -98,13 +102,13 @@ public class ECMWorkflowEngineService {
 
         StringArray cnpj = new StringArray();
         cnpj.getItem().add("cnpj"); // nome do campo.
-        cnpj.getItem().add("1637895020249"); // valor do campo.
+        cnpj.getItem().add(this.cnpj); // valor do campo.
 
         stringArrayArray.getItem().add(cnpj);
 
         StringArray empresa = new StringArray();
         empresa.getItem().add("empresa"); // nome do campo.
-        empresa.getItem().add("VOTORANTIM CIMENTOS S/A"); // valor do campo.
+        empresa.getItem().add(this.empresa); // valor do campo.
 
         stringArrayArray.getItem().add(empresa);
 
