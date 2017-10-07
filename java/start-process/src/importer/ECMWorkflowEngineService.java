@@ -14,10 +14,8 @@ import services.net.java.dev.jaxb.array.StringArrayArray;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class ECMWorkflowEngineService {
     String fluigURL = "http://hack:8080";
@@ -27,7 +25,7 @@ public class ECMWorkflowEngineService {
     String processId = "test";
     String requestComment = "starting with webservice";
     int tenantId = 1;
-    int limit = 10;
+    int limit = 3;
     List<String> requesters = Arrays.asList("marcelo.fortunato", "andre.timm", "rafael.vanat");
     List<String> approvers = Arrays.asList("robson","mateus","maria");
     List<String> approve = Arrays.asList("s","n");
@@ -191,11 +189,11 @@ public class ECMWorkflowEngineService {
     }
 
     private String getRandomDate(){
-        Random randomDate = new Random();
+        Random rnd = new Random();
+        Date date = new Date(Math.abs(System.currentTimeMillis() - rnd.nextInt()));
+        SimpleDateFormat spf = new SimpleDateFormat("dd/MM/yyyy");
 
-        return randomDate.ints(1,30) + "/" +
-                randomDate.ints(0,11) + "/"+
-                randomDate.ints(2014,2017);
+        return spf.format(date).toString();
     }
 
     private ProcessAttachmentDtoArray createProcessAttachment() {
@@ -212,7 +210,7 @@ public class ECMWorkflowEngineService {
     private void accessConfig() {
         BindingProvider bp = (BindingProvider) this.workflowEngineService;
         bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                                            this.fluigURL + "/webdesk/ECMWorkflowEngineService");
+                this.fluigURL + "/webdesk/ECMWorkflowEngineService");
     }
 
     private WorkflowEngineService instanceWorkflowEngineService() {
