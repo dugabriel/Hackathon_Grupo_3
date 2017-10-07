@@ -1,17 +1,15 @@
 package importer;
 
+import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.ws.BindingProvider;
 
-import services.com.totvs.technology.ecm.workflow.ws.Attachment;
-import services.com.totvs.technology.ecm.workflow.ws.ECMWorkflowEngineServiceService;
-import services.com.totvs.technology.ecm.workflow.ws.ProcessAttachmentDto;
-import services.com.totvs.technology.ecm.workflow.ws.ProcessAttachmentDtoArray;
-import services.com.totvs.technology.ecm.workflow.ws.WorkflowEngineService;
+import services.com.totvs.technology.ecm.workflow.ws.*;
 
 import services.net.java.dev.jaxb.array.StringArray;
 import services.net.java.dev.jaxb.array.StringArrayArray;
 
 import java.io.IOException;
+import java.lang.Exception;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -19,13 +17,13 @@ import java.util.*;
 
 public class ECMWorkflowEngineService {
     String fluigURL = "http://hack:8080";
-    String userId = "adm";
-    String userLogin = "adm";
+    String userId = "bob";
+    String userLogin = "bob";
     String userPassword = "adm";
-    String processId = "test";
-    String requestComment = "starting with webservice";
+    String processId = "aprovacao-compra";
+    String requestComment = "Favor analisar a requisição de compra";
     int tenantId = 1;
-    int limit = 3;
+    int limit = 1;
     List<String> requesters = Arrays.asList("marcelo.fortunato", "andre.timm", "rafael.vanat");
     List<String> approvers = Arrays.asList("robson","mateus","maria");
     List<String> approve = Arrays.asList("s","n");
@@ -47,18 +45,24 @@ public class ECMWorkflowEngineService {
         }
     }
 
-    private void simpleStartProcess() throws Exception {
+    private void simpleStartProcess() throws Exception{
         System.out.println("\nIniciando simpleStartProcess()\n");
 
 
         for (int i = 0; i < this.limit; i++) {
 
-            StringArray resultArray = workflowEngineService.simpleStartProcess(this.userLogin, this.userPassword,
+            /* StringArray resultArray = workflowEngineService.simpleStartProcess(this.userLogin, this.userPassword,
                     this.tenantId, this.processId, this.requestComment,
                     this.createProcessAttachment(), this.createFormFieldStringValue());
+            */
 
-            for (String result : resultArray.getItem()) {
-                System.out.println(result);
+            StringArrayArray resultArray = workflowEngineService.startProcess(this.userLogin,
+                    this.userPassword, this.tenantId, this.processId, 5, this.createDestinationUser(),
+                    this.requestComment, this.userId, true, this.createProcessAttachment(),
+                    this.createFormFieldStringValue(), this.createAppointment(), false);
+
+            for (StringArray result : resultArray.getItem()) {
+                System.out.println(result.getItem().get(0) + ": " + result.getItem().get(1));
             }
 
             Thread.sleep(500);
@@ -76,6 +80,14 @@ public class ECMWorkflowEngineService {
         return stringArray;
     }
 
+    private ProcessTaskAppointmentDtoArray createAppointment() throws DatatypeConfigurationException {
+        ProcessTaskAppointmentDtoArray processTaskAppointmentDtoArray = new ProcessTaskAppointmentDtoArray();
+        //ProcessTaskAppointmentDto processTaskAppointmentDto = new ProcessTaskAppointmentDto();
+
+        //processTaskAppointmentDtoArray.getItem().add(processTaskAppointmentDto);
+        return processTaskAppointmentDtoArray;
+    }
+
     private StringArrayArray createFormFieldStringValue() {
         StringArrayArray stringArrayArray = new StringArrayArray();
         Random random = new Random();
@@ -86,13 +98,13 @@ public class ECMWorkflowEngineService {
 
         StringArray cnpj = new StringArray();
         cnpj.getItem().add("cnpj"); // nome do campo.
-        cnpj.getItem().add("53113791000122"); // valor do campo.
+        cnpj.getItem().add("1637895020249"); // valor do campo.
 
         stringArrayArray.getItem().add(cnpj);
 
         StringArray empresa = new StringArray();
         empresa.getItem().add("empresa"); // nome do campo.
-        empresa.getItem().add("TOTVS S.A."); // valor do campo.
+        empresa.getItem().add("VOTORANTIM CIMENTOS S/A"); // valor do campo.
 
         stringArrayArray.getItem().add(empresa);
 
@@ -142,7 +154,7 @@ public class ECMWorkflowEngineService {
           /*
             APROVA?
          */
-        String approveStatus = approve.get(random.nextInt(approve.size()));
+        /*  String approveStatus = approve.get(random.nextInt(approve.size()));
 
         System.out.println("Aprova?: " + approveStatus);
         StringArray aprova = new StringArray();
@@ -150,7 +162,7 @@ public class ECMWorkflowEngineService {
         aprova.getItem().add(approveStatus); // valor do campo.
 
         stringArrayArray.getItem().add(aprova);
-
+        */
         /*
             OBS
          */
