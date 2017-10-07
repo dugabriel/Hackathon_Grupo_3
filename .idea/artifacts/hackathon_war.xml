@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="hackathon:war">
+    <output-path>$PROJECT_DIR$/wcm/widget/hackathon/target</output-path>
+    <root id="archive" name="hackathon.war">
+      <element id="artifact" artifact-name="hackathon:war exploded" />
+    </root>
+  </artifact>
+</component>

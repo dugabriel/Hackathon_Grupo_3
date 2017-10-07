@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+    <context-root>/hackathon</context-root>
+    <disable-cross-context>true</disable-cross-context>
+</jboss-web>

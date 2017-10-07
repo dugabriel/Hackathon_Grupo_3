@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+encoding//wcm/widget/hackathon/src/main/resources/application.info=utf8
+encoding//wcm/widget/hackathon/src/main/resources/edit.ftl=utf8
+encoding//wcm/widget/hackathon/src/main/resources/hackathon.properties=utf8
+encoding//wcm/widget/hackathon/src/main/resources/hackathon_en_US.properties=utf8
+encoding//wcm/widget/hackathon/src/main/resources/hackathon_es.properties=utf8
+encoding//wcm/widget/hackathon/src/main/resources/hackathon_pt_BR.properties=utf8
+encoding//wcm/widget/hackathon/src/main/resources/view.ftl=utf8
+encoding//wcm/widget/hackathon/src/main/webapp/WEB-INF/jboss-web.xml=utf8
+encoding//wcm/widget/hackathon/src/main/webapp/WEB-INF/web.xml=utf8
+encoding//wcm/widget/hackathon/src/main/webapp/resources/css/hackathon.css=utf8
+encoding//wcm/widget/hackathon/src/main/webapp/resources/images/icon.png=utf8
+encoding//wcm/widget/hackathon/src/main/webapp/resources/js/hackathon.js=utf8
