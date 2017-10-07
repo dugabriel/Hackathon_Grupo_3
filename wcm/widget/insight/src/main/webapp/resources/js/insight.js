@@ -6,14 +6,7 @@ var Insight = SuperWidget.extend({
 
     //método iniciado quando a widget é carregada
     init: function () {
-        AWS.config.region = 'us-east-1';
-        AWS.config.update({
-            "accessKeyId": "XXX",
-            "secretAccessKey": "YYY",
-        });
-
         this.polly = new AWS.Polly({ apiVersion: '2016-06-10' });
-
         this.informUser();
     },
 
@@ -24,13 +17,14 @@ var Insight = SuperWidget.extend({
     },
 
     informUser: function(){
+        var self = this;
         var params = this.getUserInsight();
         if (params != null) {
             this.polly.synthesizeSpeech(
                 params
                 , function (err, data) {
                     if (err) {
-                        this.sorry();
+                        self.sorry();
                         console.log(err, err.stack); // an error occurred
                     }
                     else player.play(data.AudioStream); // successful response
