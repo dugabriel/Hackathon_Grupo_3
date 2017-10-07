@@ -1437,7 +1437,7 @@
     <fonts name="Arial" size="8"/>
     <fonts bold="true" name="Arial" size="8"/>
   </pi:Diagram>
-  <bpmn2:BpmnProcess author="" cardIndex="6" category="test" complementsLevel="1" expedient="Default" extendedFields="&lt;list/&gt;" formSource="server" id="test" instruction="Processo de test" keyWord="" name="test" notifyRequisitionerComplements="true" notifyResponsibleComplements="true" serverId="10.80.80.96" version="1" volume="Default"/>
+  <bpmn2:BpmnProcess author="" cardIndex="15" category="test" complementsLevel="1" expedient="Default" extendedFields="&lt;list/&gt;" formSource="server" id="test" instruction="Processo de test" keyWord="" name="test" notifyRequisitionerComplements="true" notifyResponsibleComplements="true" serverId="10.80.80.96" version="2" volume="Default"/>
   <bpmn2:BpmnPool cores="FFFFFF" id="pool1" name="Pool"/>
   <bpmn2:BpmnSwimLane cores="9F9F9F" id="swimlane2" name="Reporter"/>
   <bpmn2:BpmnSwimLane cores="C0C0C0" id="swimlane3" name="Assignee"/>

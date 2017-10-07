@@ -1,1 +1,0 @@
-var MyWidget=SuperWidget.extend({variavelNumerica:null,variavelCaracter:null,init:function(){},bindings:{local:{execute:["click_executeAction"]},global:{}},executeAction:function(htmlElement,event){}});

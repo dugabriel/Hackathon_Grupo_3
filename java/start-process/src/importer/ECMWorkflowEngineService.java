@@ -14,10 +14,10 @@ import services.net.java.dev.jaxb.array.StringArrayArray;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ECMWorkflowEngineService {
     String fluigURL = "http://hack:8080";
@@ -29,7 +29,8 @@ public class ECMWorkflowEngineService {
     int tenantId = 1;
     int limit = 10;
     List<String> requesters = Arrays.asList("marcelo.fortunato", "andre.timm", "rafael.vanat");
-    List<String> approvers = Arrays.asList("robson","mateus");
+    List<String> approvers = Arrays.asList("robson","mateus","maria");
+    List<String> approve = Arrays.asList("s","n");
 
     WorkflowEngineService workflowEngineService = instanceWorkflowEngineService();
 
@@ -79,6 +80,7 @@ public class ECMWorkflowEngineService {
 
     private StringArrayArray createFormFieldStringValue() {
         StringArrayArray stringArrayArray = new StringArrayArray();
+        Random random = new Random();
 
         /*
             EMPRESA
@@ -86,13 +88,13 @@ public class ECMWorkflowEngineService {
 
         StringArray cnpj = new StringArray();
         cnpj.getItem().add("cnpj"); // nome do campo.
-        cnpj.getItem().add("32963043000240"); // valor do campo.
+        cnpj.getItem().add("53113791000122"); // valor do campo.
 
         stringArrayArray.getItem().add(cnpj);
 
         StringArray empresa = new StringArray();
         empresa.getItem().add("empresa"); // nome do campo.
-        empresa.getItem().add("AGROPECUARIA ESTEIO INVESTIMENTOS E PARTICIPAÇÕES"); // valor do campo.
+        empresa.getItem().add("TOTVS S.A."); // valor do campo.
 
         stringArrayArray.getItem().add(empresa);
 
@@ -101,7 +103,7 @@ public class ECMWorkflowEngineService {
          */
         String[] RandomProduto = this.getRandomProduct();
 
-        System.out.println("Produto: " + RandomProduto.toString());
+        System.out.println("Produto: " + RandomProduto[1]);
         StringArray produto = new StringArray();
         produto.getItem().add("produto"); // nome do campo.
         produto.getItem().add(RandomProduto[0]); // valor do campo.
@@ -118,8 +120,7 @@ public class ECMWorkflowEngineService {
         /*
          REQUISITANTE
           */
-        Random randomRequester = new Random();
-        String requester = requesters.get(randomRequester.nextInt(requesters.size()));
+        String requester = requesters.get(random.nextInt(requesters.size()));
 
         System.out.println("Requisitante: " + requester);
         StringArray requisitante = new StringArray();
@@ -128,12 +129,48 @@ public class ECMWorkflowEngineService {
 
         stringArrayArray.getItem().add(requisitante);
 
+        /*
+            APROVADORES
+         */
+        String approver = approvers.get(random.nextInt(approvers.size()));
 
+        System.out.println("Aprovador: " + approver);
+        StringArray aprovador = new StringArray();
+        aprovador.getItem().add("aprovador"); // nome do campo.
+        aprovador.getItem().add(approver); // valor do campo.
 
+        stringArrayArray.getItem().add(aprovador);
 
+          /*
+            APROVA?
+         */
+        String approveStatus = approve.get(random.nextInt(approve.size()));
 
+        System.out.println("Aprova?: " + approveStatus);
+        StringArray aprova = new StringArray();
+        aprova.getItem().add("aprova"); // nome do campo.
+        aprova.getItem().add(approveStatus); // valor do campo.
 
+        stringArrayArray.getItem().add(aprova);
 
+        /*
+            OBS
+         */
+
+        StringArray obs = new StringArray();
+        obs.getItem().add("obs"); // nome do campo.
+        obs.getItem().add("Solicitação de compra"); // valor do campo.
+
+        stringArrayArray.getItem().add(obs);
+
+         /*
+            DATA
+         */
+        StringArray data = new StringArray();
+        data.getItem().add("datax"); // nome do campo.
+        data.getItem().add(this.getRandomDate()); // valor do campo.
+
+        stringArrayArray.getItem().add(data);
 
         return stringArrayArray;
     }
@@ -151,6 +188,14 @@ public class ECMWorkflowEngineService {
         }
 
         return product;
+    }
+
+    private String getRandomDate(){
+        Random randomDate = new Random();
+
+        return randomDate.ints(1,30) + "/" +
+                randomDate.ints(0,11) + "/"+
+                randomDate.ints(2014,2017);
     }
 
     private ProcessAttachmentDtoArray createProcessAttachment() {
