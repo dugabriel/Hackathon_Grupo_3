@@ -13,3 +13,4 @@ view.file=view.ftl
 edit.file=edit.ftl
 application.resource.js.1=/resources/js/audio.js
 application.resource.js.2=/resources/js/synaptic.min.js
+application.resource.js.3=/resources/js/aws-sdk.min.js
