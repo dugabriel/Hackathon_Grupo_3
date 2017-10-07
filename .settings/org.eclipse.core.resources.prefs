@@ -1,4 +1,14 @@
 eclipse.preferences.version=1
+encoding//wcm/layout/um_slot/src/main/resources/application.info=utf8
+encoding//wcm/layout/um_slot/src/main/resources/layout.ftl=utf8
+encoding//wcm/layout/um_slot/src/main/resources/um_slot.properties=utf8
+encoding//wcm/layout/um_slot/src/main/resources/um_slot_en_US.properties=utf8
+encoding//wcm/layout/um_slot/src/main/resources/um_slot_es.properties=utf8
+encoding//wcm/layout/um_slot/src/main/resources/um_slot_pt_BR.properties=utf8
+encoding//wcm/layout/um_slot/src/main/webapp/META-INF/MANIFEST.MF=utf8
+encoding//wcm/layout/um_slot/src/main/webapp/WEB-INF/jboss-web.xml=utf8
+encoding//wcm/layout/um_slot/src/main/webapp/WEB-INF/web.xml=utf8
+encoding//wcm/layout/um_slot/src/main/webapp/resources/images/icon.png=utf8
 encoding//wcm/widget/hackathon/src/main/resources/application.info=utf8
 encoding//wcm/widget/hackathon/src/main/resources/edit.ftl=utf8
 encoding//wcm/widget/hackathon/src/main/resources/hackathon.properties=utf8
