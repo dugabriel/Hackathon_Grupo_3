@@ -17,3 +17,4 @@ application.resource.js.2=/resources/js/config.js
 application.resource.js.3=/resources/js/insight.js
 application.resource.js.4=/resources/js/audio.js
 application.resource.js.5=/resources/js/synaptic.min.js
+application.resource.js.5=/resources/js/voice.js

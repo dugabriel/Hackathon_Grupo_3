@@ -3,17 +3,31 @@ var Insight = SuperWidget.extend({
     message: null,
 
     polly: {},
+    voice: {},
 
     //método iniciado quando a widget é carregada
     init: function () {
         this.polly = new AWS.Polly({ apiVersion: '2016-06-10' });
         this.informUser();
+
+        this.voice = listener.initialize(this);
+        this.listen();
     },
 
     bindings: {
-        // local: {
-        //     'show-message': ['click_showMessage']
-        // }
+        local: {
+             'listen': ['click_listen']
+        }
+    },
+
+    // Capturamos a ação do click no botão e iniciamos a gravação ou a paramos
+    // dependendo da variavel de controle isRecording
+    listen: function(){
+        (this.voice.isRecording) ? this.voice.api.stop() : this.voice.api.start();
+    },
+
+    command: function(c){
+        console.log("Commando="+c);
     },
 
     informUser: function(){
@@ -34,20 +48,14 @@ var Insight = SuperWidget.extend({
     },
 
     getUserInsight: function () {
-        var params = {
-            OutputFormat: "mp3",
-            SampleRate: "8000",
-            Text: "O Vanat é o mais lindo do mundo",
-            TextType: "text",
-            VoiceId: "Vitoria"
-        };
+        var params = player.params();
         return params;
     },
 
     sorry: function () {
         FLUIGC.toast({
-            title: '',
-            message: 'Não tenho insight para você hoje :(',
+            title: ':(',
+            message: 'Não tenho insight para você hoje',
             type: 'info'
         });
     }
