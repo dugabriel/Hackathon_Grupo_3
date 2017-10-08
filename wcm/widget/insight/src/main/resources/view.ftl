@@ -15,8 +15,8 @@
         </div>
     </div>
 
-    <div class="row">
-	    <div class="col-md-offset-1 col-lg-5 col-md-6" data-reprovado>
+ <div class="row">
+	    <div class="col-md-offset-1 col-lg-5 col-md-6" data-risco-aprovado>
 	        <div class="panel panel-success">
 	            <div class="panel-heading">
 	                <div class="row">
@@ -31,7 +31,7 @@
 	            </div>
 	        </div>
 	    </div>	
-		<div class="col-lg-5 col-md-6" data-aprovado>
+		<div class="col-lg-5 col-md-6" data-risco-reprovado>
 	        <div class="panel panel-danger">
 	            <div class="panel-heading">
 	                <div class="row">
@@ -47,10 +47,23 @@
 	        </div>
 	    </div>
 	</div>
-    
-	
+    <div class="row">
+    	<div class="col-lg-12 col-md-12">
+			<div id="gridRisco"></div>
+    	</div>
+    </div>
     <div>
         <button type="button" class="btn btn-default" data-show-message>${i18n.getTranslation('hello.button.showMessage')}</button>
     </div>
     
 </div>
+<script type="text/template" class="datatable_risco table table-striped">
+	<tr>
+		<td data-name="processid">{{processid}}</td>
+		<td data-name="empresa">{{empresa}}</td>
+		<td data-name="produto">{{produto}}</td>
+		<td data-name="requisitante">{{requisitante}}</td>
+		<td data-name="valor" id="datatable-nome-projeto">{{valor}}</td>
+		<td data-name="porcetagem" id="datatable-nome-projeto">{{porcetagem}}</td>
+	</tr>
+</script>

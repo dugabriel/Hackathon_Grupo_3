@@ -25,6 +25,7 @@ var Insight = SuperWidget.extend({
     		reprovado.innerHTML = y;
     	}, 200);
     	 */
+        self.startTables();
         this.ia();
 
         this.polly = new AWS.Polly({ apiVersion: '2016-06-10' });
@@ -440,78 +441,175 @@ var Insight = SuperWidget.extend({
         //return d;
     },
     
-    chartLine: function () {
-    	var chartLine = FLUIGC.chart('#line', {
-    	    id: 'set_an_id_for_my_chart',
-    	    width: '700',
-    	    height: '200',
-    	});
-    	
-    	var dataLine = {
-    		    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    		    datasets: [
-    		        {
-    		            label: "My First dataset",
-    		            fillColor: "rgba(220,220,220,0.2)",
-    		            strokeColor: "rgba(220,220,220,1)",
-    		            pointColor: "rgba(220,220,220,1)",
-    		            pointStrokeColor: "#fff",
-    		            pointHighlightFill: "#fff",
-    		            pointHighlightStroke: "rgba(220,220,220,1)",
-    		            data: [65, 59, 80, 81, 56, 55, 40]
-    		        },
-    		        {
-    		            label: "My Second dataset",
-    		            fillColor: "rgba(151,187,205,0.2)",
-    		            strokeColor: "rgba(151,187,205,1)",
-    		            pointColor: "rgba(151,187,205,1)",
-    		            pointStrokeColor: "#fff",
-    		            pointHighlightFill: "#fff",
-    		            pointHighlightStroke: "rgba(151,187,205,1)",
-    		            data: [28, 48, 40, 19, 86, 27, 90]
-    		        }
-    		    ]
-    		};
-    	var options = null;
-    	var lineChart = chartLine.line(dataLine, options);
+    startTables: function() {
+    	var self = this;
+    	var filter = "select * from ml002004 where aprova is null;";
+    	self.getDataSolic(filter)
+    		.done(function(data){
+				var grid = 'gridRisco';
+				var fields = [];
+				var dataset = 'ds_sql_fluig_consulta';
+			    var template = 'datatable_risco';
+				var headerDatatable = [
+			        {
+			        	'title': 'Processo ID',
+			        	'size' : 'col-md-2'
+			        },
+			        {
+			        	'title': 'Empresa',
+			        	'size' : 'col-md-2'
+		    		},
+			        {
+			        	'title': 'Produto',
+			        	'size' : 'col-md-2'
+		    		},
+			        {
+			        	'title': 'Requisitante',
+			        	'size' : 'col-md-2'
+		    		},
+			        {
+			        	'title': 'Valor',
+			        	'size' : 'col-md-2'
+		    		},
+			        {
+			        	'title': 'Porcetagem',
+			        	'size' : 'col-md-2'
+		    		},
+		   	    ];
+				self.datatable = self.createDatatable(grid, fields, dataset, data.values, template, headerDatatable, false);
+		}).fail(function(error){
+			console.log(error);
+		});
     },
     
-    chartDoughnut: function() {
-    	var chartDoughnut = FLUIGC.chart('#doughnut', {
-			id: 'set_an_id_for_my_chart',
-        	width: '700',
-        	height: '200',
-		});
-	
-		var dataDoughnut = [
-	            {
-	                value: 300,
-	                color:"#F7464A",
-	                highlight: "#FF5A5E",
-	                label: "Red"
-	            },
-	            {
-	                value: 50,
-	                color: "#46BFBD",
-	                highlight: "#5AD3D1",
-	                label: "Green"
-	            },
-	            {
-	                value: 100,
-	                color: "#FDB45C",
-	                highlight: "#FFC870",
-	                label: "Yellow"
-	            }
-	        ]
-		var options = [{
-			percentageInnerCutout: 100
-		}];
-		var doughnutChart = chartDoughnut.doughnut(dataDoughnut, options);
-		
-		$('#doughnut').on('fluig.chart.doughnut.click', function(data) {
-		    alert("opa");
-		    console.log(data);
-		});
-    }
+    getDataSolic: function(filter){
+    	var self = this;
+    	fields = [filter];
+    	var constraints = [];
+        if (filter != null && filter != undefined) {
+        	constraints.push(self.createConstraint("aprova", filter));
+        }
+        return self.getDataset("ds_sql_fluig_consulta", fields, constraints);
+    },
+    
+    createDatatable: function(grid, fields, dataset, myData, template, headerDatatable, enableSearch){
+        var self = this;
+        console.log(myData);
+        self.datatable = FLUIGC.datatable("#"+grid, {
+            dataRequest: myData,
+            renderContent: '.'+template,
+            search: {
+                enabled: enableSearch,
+                onSearch: function(searchText) {
+                		self.reloadDatatable(dataset, searchText, fields).done(function(data){
+	                    //self.datatable.reload(data);
+	                });
+                },
+                onlyEnterkey: true,
+                searchAreaStyle: 'col-md-3'
+            },
+            navButtons: {
+                enabled: false,
+            },
+
+            emptyMessage: '',//'<br><div class="text-center"><h2>Nenhum registro encontrado ou falta de permissão do usuário.</h2></div>',
+            header: headerDatatable
+        }, function(err, data) {
+        	console.log(err);
+        	console.log(data);
+        });
+/*      navButtons: {
+				enabled: false,
+				forwardstyle: 'btn-primary',
+				backwardstyle: 'btn-primary',
+            },
+            scroll:{
+            	enabled : false,
+            },
+            actions: {
+                enabled: true,
+                template: '.template_area_buttons',
+                actionAreaStyle: 'col-md-9'
+            },
+            emptyMessage: '<br><div class="text-center"><h2>Nenhum registro encontrado ou falta de permissão do usuário.</h2></div>',
+            tableStyle: 'table-striped table table-condensed',
+            header: headerDatatable
+        }, function(err, data) {
+            
+        });*/
+        console.log(self.datatable);
+        return self.datatable;
+    },
+        
+    createConstraint: function(field, value, type, likeSearch){
+        return {
+            "_field":field,
+            "_initialValue":value,
+            "_finalValue":value,
+            "_type": type || 1,
+            "_likeSearch" : likeSearch || false
+        };
+    },
+        
+    getDataset: function(datasetName, fields, constratins, order) {    
+    	var url = WCMAPI.getServerURL()+'/api/public/ecm/dataset/datasets';    
+        var d = $.Deferred();
+        var request_data = {
+        	
+            url: url,
+            method: 'POST',
+            ajaxData: JSON.stringify({
+                "name":datasetName,
+                "fields": fields || [],
+                "constraints":[],
+                "order": []
+            }),
+            data: {}
+        };
+        $.ajax({
+            url: request_data.url,
+            async: true,
+            type: request_data.method,
+            data: request_data.ajaxData,
+            contentType: "application/json"
+        })
+        .pipe(function(p){
+        	return p.content;
+        })
+        .done(function(result){ 
+        	d.resolve(result);
+        })
+        .fail(function(error){
+        	console.log(error);
+        	d.reject
+        });
+        return d;
+    },
+    
+    reloadDatatable: function(dataset, filtro, campos){
+        var d = $.Deferred();
+        var self = this;
+        var fields = [];
+        var constraints = [];
+        /*        
+        if(filtro != null && filtro != "" && campos.length > 0){
+        	for(var i = 0; i < campos.length; i++){
+        		constraints.push(self.createConstraint(campos[i],filtro[i],2,true));
+        	}
+        }
+        self.getDataset(dataset,fields,constraints)*/
+        //(complementoURL, metodo, filtros){
+        self.getDadosAjax()
+	        .pipe(function(p){
+	            return p;
+	        }).done(function(result){
+	            d.resolve(result.values);
+	        }).fail(function(data){
+	            d.reject;
+	        }).always(function(){
+	        	//self.loading.hide();
+	        });
+        return d;
+    },
 
 });
