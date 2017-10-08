@@ -63,7 +63,8 @@
 		<td data-name="empresa">{{empresa}}</td>
 		<td data-name="produto">{{produto}}</td>
 		<td data-name="requisitante">{{requisitante}}</td>
-		<td data-name="valor" id="datatable-nome-projeto">{{valor}}</td>
-		<td data-name="porcetagem" id="datatable-nome-projeto">{{porcetagem}}</td>
+		<td data-name="valor">{{valor}}</td>
+		<td data-name="porcetagem">{{porcetagem}}</td>
+		<td data-name="status">{{status}}</td>
 	</tr>
 </script>

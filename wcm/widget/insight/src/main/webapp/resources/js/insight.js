@@ -15,8 +15,7 @@ var Insight = SuperWidget.extend({
     init: function () {
         var self = this;
     	
-        this.getOpenProcess();
-        
+   
     	/*var x = 60;
     	var y = 40;
     	
@@ -25,14 +24,13 @@ var Insight = SuperWidget.extend({
     		reprovado.innerHTML = y;
     	}, 200);
     	 */
-        self.startTables();
         this.ia();
 
-        this.polly = new AWS.Polly({ apiVersion: '2016-06-10' });
-        this.informUser();
+        //this.polly = new AWS.Polly({ apiVersion: '2016-06-10' });
+       // this.informUser();
 
-        this.voice = listener.initialize(this);
-        this.bindKeyboard();
+        //this.voice = listener.initialize(this);
+       // this.bindKeyboard();
     },
 
     bindings: {
@@ -255,7 +253,7 @@ var Insight = SuperWidget.extend({
 			async: false,
 			data: param,
 			success:function(data, status, xhr){
-                self.adjustData(data.content.values);
+                self.ajustaData(data.content.values);
 			},
 			fail: function(xhr, status, error){
 				console.log('fail',error);
@@ -280,7 +278,7 @@ var Insight = SuperWidget.extend({
             self.importNetwork = this.netWork;
         }
 
-        console.log("+++++++++++++++++++++++++++++");
+        /*console.log("+++++++++++++++++++++++++++++");
 
         var recommendations = self.getApprovalRate([1,0,0.25]);
         console.log('Aprova ' + recommendations[0]);
@@ -320,8 +318,11 @@ var Insight = SuperWidget.extend({
         
         var recommendations = self.getApprovalRate([0,1,0.0623]);
         console.log('Aprova ' + recommendations[0]);
-        console.log('Reprova ' + recommendations[1]);
-
+        console.log('Reprova ' + recommendations[1]);*/
+        
+        console.log('creating datatable..');
+        
+        self.startTables();
     },
 
     trainNeural: function(dataset){
@@ -453,28 +454,32 @@ var Insight = SuperWidget.extend({
 				var headerDatatable = [
 			        {
 			        	'title': 'Processo ID',
-			        	'size' : 'col-md-2'
+			        	'size' : 'col-md-1'
 			        },
 			        {
 			        	'title': 'Empresa',
-			        	'size' : 'col-md-2'
+			        	'size' : 'col-md-3'
 		    		},
 			        {
 			        	'title': 'Produto',
-			        	'size' : 'col-md-2'
+			        	'size' : 'col-md-4'
 		    		},
 			        {
 			        	'title': 'Requisitante',
-			        	'size' : 'col-md-2'
+			        	'size' : 'col-md-1'
 		    		},
 			        {
 			        	'title': 'Valor',
-			        	'size' : 'col-md-2'
+			        	'size' : 'col-md-1'
 		    		},
 			        {
 			        	'title': 'Porcetagem',
-			        	'size' : 'col-md-2'
+			        	'size' : 'col-md-1'
 		    		},
+		    		{
+		    			'title': 'Status',
+			        	'size' : 'col-md-1'
+		    		}
 		   	    ];
 				self.datatable = self.createDatatable(grid, fields, dataset, data.values, template, headerDatatable, false);
 		}).fail(function(error){
@@ -494,9 +499,47 @@ var Insight = SuperWidget.extend({
     
     createDatatable: function(grid, fields, dataset, myData, template, headerDatatable, enableSearch){
         var self = this;
-        console.log(myData);
+        var data = myData;   
+    	var x = 0;
+    	var y = 0;
+        
+    	for(var i in data){
+    		var calculate = new Array();
+    		
+    		var empresa = data[i].empresa;
+    		
+    		if (empresa == "VOTORANTIM CIMENTOS S/A") {
+    			calculate.push(0,1);
+    		} else {
+    			calculate.push(1,0);
+    		}
+    		
+    		var valor = (parseInt(data[i].valor)/10000);
+    		
+    		calculate.push(valor);
+    		
+    		var recommendations = self.getApprovalRate(calculate);
+    	    console.log('Aprova ' + recommendations[0]);
+    	    console.log('Reprova ' + recommendations[1]);
+    	    
+    	    if (recommendations[0] > recommendations[1] && recommendations[0] < 1) {
+    	    	data[i].porcetagem = (recommendations[0]*100);
+    	    	data[i].status = "true";
+    	    	y++;
+    	    } else {
+    	      	data[i].porcetagem = (recommendations[1]*100);
+    	      	data[i].status = "false";
+    	      	x++;
+    	    }
+    	} 
+    	
+    	setTimeout(function(){
+    		aprovado.innerHTML = x;
+    		reprovado.innerHTML = y;
+    	}, 200);
+    	    	   
         self.datatable = FLUIGC.datatable("#"+grid, {
-            dataRequest: myData,
+            dataRequest: data,
             renderContent: '.'+template,
             search: {
                 enabled: enableSearch,
