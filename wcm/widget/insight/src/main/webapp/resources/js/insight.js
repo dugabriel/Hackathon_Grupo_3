@@ -95,6 +95,11 @@ var Insight = SuperWidget.extend({
     },
 
     command: function (c) {
+        if(this.toApprove.length == 0 && this.toReprove.length == 0) {
+            this.stopListen();
+            return;
+        }
+
         console.log("Commando=" + c);
         var preparedCommand = c.trim().toLowerCase();
         if (preparedCommand.indexOf("aprova") > -1
@@ -208,6 +213,7 @@ var Insight = SuperWidget.extend({
             params.Text += (this.toApprove.length > 0 && this.toReprove.length > 0) ? "aprovar " : "";
             params.Text += (this.toReprove.length > 0) ? "reprovar " : "";
         }
+        else params.Text = "Sem tarefas para ação automática.";
         return params;
     },
 
