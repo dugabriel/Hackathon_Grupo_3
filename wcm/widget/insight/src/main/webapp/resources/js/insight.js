@@ -3,17 +3,28 @@ var Insight = SuperWidget.extend({
     message: null,
 
     polly: {},
+<<<<<<< HEAD
     netWork: new synaptic.Architect.Perceptron(3,18,2),
     importNetwork: null,
+=======
+>>>>>>> e1c9ba6096a5f676d907bc2eea8bc30bd08713b8
     voice: {},
 
     //método iniciado quando a widget é carregada
     init: function () {
+<<<<<<< HEAD
         //this.polly = new AWS.Polly({ apiVersion: '2016-06-10' });
         //this.informUser();
         //this.voice = listener.initialize(this);
         //this.listen();
         this.ia();
+=======
+        this.polly = new AWS.Polly({ apiVersion: '2016-06-10' });
+        this.informUser();
+
+        this.voice = listener.initialize(this);
+        this.listen();
+>>>>>>> e1c9ba6096a5f676d907bc2eea8bc30bd08713b8
     },
 
     bindings: {
@@ -56,8 +67,8 @@ var Insight = SuperWidget.extend({
 
     sorry: function () {
         FLUIGC.toast({
-            title: '',
-            message: 'Não tenho insight para você hoje :(',
+            title: ':(',
+            message: 'Não tenho insight para você hoje',
             type: 'info'
         });
     },
