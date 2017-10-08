@@ -28,8 +28,8 @@ public class ECMWorkflowEngineService {
     List<String> requesters = Arrays.asList("marcelo.fortunato", "andre.timm", "rafael.vanat");
     List<String> approvers = Arrays.asList("robson","mateus","maria");
     List<String> approve = Arrays.asList("s","n");
-    String cnpj = "53113791000122";
-    String empresa = "TOTVS S.A.";
+    String cnpj = "1637895020249";
+    String empresa = "VOTORANTIM CIMENTOS S/A";
 
     WorkflowEngineService workflowEngineService = instanceWorkflowEngineService();
 
