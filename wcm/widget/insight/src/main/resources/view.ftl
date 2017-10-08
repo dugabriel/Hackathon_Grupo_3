@@ -16,7 +16,7 @@
     </div>
 
  <div class="row">
-	    <div class="col-md-offset-1 col-lg-5 col-md-6" data-risco-aprovado>
+	    <div class="col-lg-4 col-md-4" data-risco-aprovado>
 	        <div class="panel panel-success">
 	            <div class="panel-heading">
 	                <div class="row">
@@ -31,7 +31,7 @@
 	            </div>
 	        </div>
 	    </div>	
-	    <div class="col-lg-4 col-md-6" data-risco-aprendizado>
+	    <div class="col-lg-4 col-md-4" data-risco-aprendizado>
 	        <div class="panel panel-warning">
 	            <div class="panel-heading">
 	                <div class="row">
@@ -46,7 +46,7 @@
 	            </div>
 	        </div>
 	    </div>	 
-		<div class="col-lg-5 col-md-6" data-risco-reprovado>
+		<div class="col-lg-4 col-md-4" data-risco-reprovado>
 	        <div class="panel panel-danger">
 	            <div class="panel-heading">
 	                <div class="row">
