@@ -85,7 +85,7 @@ var Insight = SuperWidget.extend({
                     player.play(data.AudioStream); // successful response
                     setTimeout(function(){
                         self.listen();
-                    }, 150);
+                    }, 1500);
                 }
             }
         );
@@ -109,7 +109,7 @@ var Insight = SuperWidget.extend({
 
     cancelResponse: function () {
         var params = player.params();
-        params.Text = "Tudo bem, fica pra outra hora!"
+        params.Text = "Sem problemas, fica pra outra hora!"
         this.polly.synthesizeSpeech(
             params
             , function (err, data) {
