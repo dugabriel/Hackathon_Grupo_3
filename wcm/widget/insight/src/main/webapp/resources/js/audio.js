@@ -11,11 +11,20 @@ var player = {
 
         this.context.decodeAudioData(buffer.buffer, this._play);
     },
-    _play(audioBuffer) {
+    _play: function(audioBuffer) {
         //this aqui já é o audio context
         var source = this.createBufferSource();
         source.buffer = audioBuffer;
         source.connect(this.destination);
         source.start(0);
+    },
+    params:function(){
+        return {
+            OutputFormat: "mp3",
+            SampleRate: "8000",
+            Text: "O Vanat é o mais lindo do mundo",
+            TextType: "text",
+            VoiceId: "Vitoria"
+        };
     }
 }
