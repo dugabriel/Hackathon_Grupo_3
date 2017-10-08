@@ -80,6 +80,6 @@
 		<td data-name="requisitante">{{requisitante}}</td>
 		<td data-name="valor">{{valor}}</td>
 		<td data-name="porcetagem">{{porcetagem}}</td>
-		<td data-name="status">{{status}}</td>
+		<td data-name="status" class="status">{{status}}</td>
 	</tr>
 </script>

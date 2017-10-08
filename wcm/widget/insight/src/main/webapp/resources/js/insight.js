@@ -621,6 +621,19 @@ var Insight = SuperWidget.extend({
         }, function(err, data) {
         	console.log(err);
         	console.log(data);
+        	
+        	$(".status").each(function(index){
+        		var text = $( this ).text();
+        		
+        		if(text == "true") {
+        			$(this).html("<span class='fs-xs-space fluigicon fluigicon-arrow-up fluigicon-sm'></span>"); 
+        		} else if (text == "false") {
+        			$(this).html("<span class='fs-xs-space fluigicon fluigicon-arrow-down fluigicon-sm'></span>");
+        		}else {
+        			$(this).html("<span class='fs-xs-space fluigicon fluigicon-uncheked fluigicon-sm'></span>");
+        		}
+        	});
+
         });
 /*      navButtons: {
 				enabled: false,
