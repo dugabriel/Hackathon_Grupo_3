@@ -6,6 +6,8 @@ var Insight = SuperWidget.extend({
     REPROVE: "11",
     isConfirming: "",
     
+    datatable: null,
+    
     toApprove: [],
     toReprove: [],
 
@@ -433,7 +435,7 @@ var Insight = SuperWidget.extend({
     }, 
     
     ajaxAPI: function(selectedState, selectedColleagues, password, observation, instances, managerMode) {
-    	
+    	var that = this;
         var url = WCMAPI.getServerURL();
         var d = $.Deferred();
         var request_data = {
@@ -475,7 +477,10 @@ var Insight = SuperWidget.extend({
                         else player.play(data.AudioStream); // successful response
                     }
                 );
-            }          
+            }        
+            
+            that.datatable.destroy();
+            that.startTables();
         })
         .fail(function(data){
             d.reject
@@ -568,7 +573,7 @@ var Insight = SuperWidget.extend({
     		var recommendations = self.getApprovalRate(calculate);
     	    console.log('Aprova ' + recommendations[0]);
     	    console.log('Reprova ' + recommendations[1]);
-    	    if ( recommendations[0] < 1 &&  recommendations[1] < 1) {
+    	    if ( parseInt(recommendations[0]) < 1 &&  parseInt(recommendations[1]) < 1) {
                 if (recommendations[0] > recommendations[1]) {
                     data[i].porcetagem = (recommendations[0]*100);
                     data[i].status = "true";

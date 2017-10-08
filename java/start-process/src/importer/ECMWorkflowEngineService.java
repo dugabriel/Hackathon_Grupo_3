@@ -24,7 +24,7 @@ public class ECMWorkflowEngineService {
     String processId = "solicitacao-compra";
     String requestComment = "Favor analisar a requisição de compra";
     int tenantId = 2;
-    int limit = 15;
+    int limit = 20;
     List<String> requesters = Arrays.asList("marcelo.fortunato", "andre.timm", "rafael.vanat");
     List<String> approvers = Arrays.asList("robson","mateus","maria");
     List<String> approve = Arrays.asList("s","n");
