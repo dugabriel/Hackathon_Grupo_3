@@ -554,6 +554,7 @@ var Insight = SuperWidget.extend({
         var data = myData;   
     	var x = 0;
     	var y = 0;
+    	var z = 0;
         
     	for(var i in data){
     		var calculate = new Array();
@@ -575,18 +576,19 @@ var Insight = SuperWidget.extend({
     	    console.log('Reprova ' + recommendations[1]);
     	    if ( parseInt(recommendations[0]) < 1 &&  parseInt(recommendations[1]) < 1) {
                 if (recommendations[0] > recommendations[1]) {
-                    data[i].porcetagem = (recommendations[0]*100);
+                    data[i].porcetagem = (recommendations[0]*100).toFixed(2);
                     data[i].status = "true";
                     x++;
                     self.toApprove.push(data[i].processid);
                 } else {
-                    data[i].porcetagem = (recommendations[1]*100);
+                    data[i].porcetagem = (recommendations[1]*100).toFixed(2);
                     data[i].status = "false";
                     y++;
                     self.toReprove.push(data[i].processid);
                 }
     	    } else {
     	    	data[i].status = "nodata";
+    	    	z++;
     	    }
     	}
         this.informUser();
@@ -594,6 +596,7 @@ var Insight = SuperWidget.extend({
     	setTimeout(function(){
     		aprovado.innerHTML = x;
     		reprovado.innerHTML = y;
+    		aprendizado.innerHTML = z;
     	}, 200);
     	    	   
         self.datatable = FLUIGC.datatable("#"+grid, {

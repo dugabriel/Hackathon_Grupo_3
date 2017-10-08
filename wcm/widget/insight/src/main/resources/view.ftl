@@ -31,6 +31,21 @@
 	            </div>
 	        </div>
 	    </div>	
+	    <div class="col-lg-4 col-md-6" data-risco-aprendizado>
+	        <div class="panel panel-warning">
+	            <div class="panel-heading">
+	                <div class="row">
+	                    <div class="col-xs-3">
+	                        <i class="fluigicon fluigicon-community-edit fluigicon-thumbnail-lg"></i>
+	                    </div>
+	                    <div class="col-xs-7 text-center">
+	                        <h1 id="aprendizado" class="odometer">0</h1>
+	                        <div>Tarefas em Aprendizado</div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>	 
 		<div class="col-lg-5 col-md-6" data-risco-reprovado>
 	        <div class="panel panel-danger">
 	            <div class="panel-heading">
