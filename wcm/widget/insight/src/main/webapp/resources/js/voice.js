@@ -26,6 +26,7 @@ var listener = {
             // e modificar o texto do botão
             this.api.onstart = function () {
                 console.log('Gravando! Parar gravação.');
+                $("#listening").show();
                 listener.isRecording = true;
                 listener.result = "";
                 document.getElementById('texto').value = listener.result;
@@ -39,6 +40,7 @@ var listener = {
             };
             this.api.onerror = function (event) {
                 console.log(event.error);
+                $("#listening").hide();
             };
             // Com o metodo onresult posso capturar a transcrição do resultado 
             this.api.onresult = function (event) {
@@ -64,18 +66,14 @@ var listener = {
                     setTimeout(function(){
                         var response = document.getElementById('texto').value;
                         if(response != ""){
-                            FLUIGC.toast({
-                                title: ':)',
-                                message: 'Recebi seu comando, aguarde um instante!',
-                                type: 'info'
-                            });
                             setTimeout(function(){
                                 listener._invoker.command(response);
                             }, 150);
                         }
                         listener.result = "";
                         document.getElementById('texto').value = "";
-
+                        if(listener.speechAsText) listener.speechAsText = "";
+                        if(interim_transcript) interim_transcript = "";
                     }, 4000);
                 }
             };

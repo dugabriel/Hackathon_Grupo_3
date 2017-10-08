@@ -2,11 +2,13 @@ var Insight = SuperWidget.extend({
     instanceId: "",
     message: null,
 
-    polly: {},
+    APPROVE: "5",
+    REPROVE: "6",
 
     netWork: new synaptic.Architect.Perceptron(3,18,2),
     importNetwork: null,
 
+    polly: {},
     voice: {},
 
     //método iniciado quando a widget é carregada
@@ -17,27 +19,110 @@ var Insight = SuperWidget.extend({
         this.informUser();
 
         this.voice = listener.initialize(this);
-        this.listen();
-
+        this.bindKeyboard();
     },
 
     bindings: {
         local: {
-             'listen': ['click_listen']
+            'listen': ['click_listen']
         }
+    },
+
+    bindKeyboard: function(){
+        var self = this;
+        $(window).keydown(function(e){
+            if (e.ctrlKey){
+                console.log('Control Down');
+                self.listen();
+            }
+        });
     },
 
     // Capturamos a ação do click no botão e iniciamos a gravação ou a paramos
     // dependendo da variavel de controle isRecording
-    listen: function(){
-        (this.voice.isRecording) ? this.voice.api.stop() : this.voice.api.start();
+    listen: function () {
+        (this.voice.isRecording) ? this.stopListen() : this.voice.api.start();
+    },
+    stopListen: function(){
+        this.voice.api.stop();
+        $("#listening").hide();
     },
 
-    command: function(c){
-        console.log("Commando="+c);
+    command: function (c) {
+        console.log("Commando=" + c);
+        var preparedCommand = c.trim().toLowerCase();
+        if (preparedCommand.indexOf("aprova") > -1
+            || preparedCommand.indexOf("ok") > -1) {
+            this.confirm(this.APPROVE);
+        }
+        else if (preparedCommand.indexOf("reprova") > -1) {
+            this.confirm(this.REPROVE);
+        }
+        else{
+            this.stopListen();
+            (preparedCommand.indexOf("sim") > -1
+                || preparedCommand.indexOf("prossiga") > -1)
+                ? this.highFidelityAction()
+                : this.cancelResponse();
+        }
     },
 
-    informUser: function(){
+    confirm: function (actionContext) {
+        var self = this;
+
+        var params = player.params();
+        params.Text = (actionContext == self.APPROVE)
+            ? "Vou prosseguir com a aprovação, tudo bem?"
+            : "Tem certeza que deseja reprovar?";
+        self.polly.synthesizeSpeech(
+            params
+            , function (err, data) {
+                if (err) {
+                    self.sorry();
+                    console.log(err, err.stack); // an error occurred
+                }
+                else {
+                    player.play(data.AudioStream); // successful response
+                    setTimeout(function(){
+                        self.listen();
+                    }, 150);
+                }
+            }
+        );
+    },
+
+    highFidelityAction: function () {
+        console.log("HIGH");
+        var params = player.params();
+        params.Text = "Aguarde, assim que finalizar eu te aviso."
+        this.polly.synthesizeSpeech(
+            params
+            , function (err, data) {
+                if (err) {
+                    self.sorry();
+                    console.log(err, err.stack); // an error occurred
+                }
+                else player.play(data.AudioStream); // successful response
+            }
+        );
+    },
+
+    cancelResponse: function () {
+        var params = player.params();
+        params.Text = "Tudo bem, fica pra outra hora!"
+        this.polly.synthesizeSpeech(
+            params
+            , function (err, data) {
+                if (err) {
+                    self.sorry();
+                    console.log(err, err.stack); // an error occurred
+                }
+                else player.play(data.AudioStream); // successful response
+            }
+        );
+    },
+
+    informUser: function () {
         var self = this;
         var params = this.getUserInsight();
         if (params != null) {
@@ -120,7 +205,7 @@ var Insight = SuperWidget.extend({
 			async: false,
 			data: param,
 			success:function(data, status, xhr){
-                self.ajustaData(data.content.values);
+                self.adjustData(data.content.values);
 			},
 			fail: function(xhr, status, error){
 				console.log('fail',error);
