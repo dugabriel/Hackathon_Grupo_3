@@ -2,13 +2,12 @@ var Insight = SuperWidget.extend({
     instanceId: "",
     message: null,
 
-    APPROVE: "5",
-    REPROVE: "6",
+    APPROVE: "9",
+    REPROVE: "11",
+    isConfirming: "",
     
     toApprove: [],
     toReprove: [],
-    
-    
 
     netWork: new synaptic.Architect.Perceptron(3,18,2),
     importNetwork: null,
@@ -24,7 +23,7 @@ var Insight = SuperWidget.extend({
         this.ia();
 
         this.polly = new AWS.Polly({ apiVersion: '2016-06-10' });
-        this.informUser();
+        
 
         this.voice = listener.initialize(this);
         this.bindKeyboard();
@@ -99,16 +98,20 @@ var Insight = SuperWidget.extend({
         if (preparedCommand.indexOf("aprova") > -1
             || preparedCommand.indexOf("ok") > -1) {
             this.confirm(this.APPROVE);
+            this.isConfirming = this.APPROVE;
         }
         else if (preparedCommand.indexOf("reprova") > -1) {
             this.confirm(this.REPROVE);
+            this.isConfirming = this.REPROVE;
         }
         else{
             this.stopListen();
             (preparedCommand.indexOf("sim") > -1
                 || preparedCommand.indexOf("prossiga") > -1)
-                ? this.highFidelityAction()
+                ? this.highFidelityAction(this.isConfirming)
                 : this.cancelResponse();
+            
+            this.isConfirming = "";
         }
     },
 
@@ -136,7 +139,7 @@ var Insight = SuperWidget.extend({
         );
     },
 
-    highFidelityAction: function () {
+    highFidelityAction: function (targetState) {
         console.log("HIGH");
         var params = player.params();
         params.Text = "Aguarde, assim que finalizar eu te aviso."
@@ -150,6 +153,8 @@ var Insight = SuperWidget.extend({
                 else player.play(data.AudioStream); // successful response
             }
         );
+
+        this.blockMove(targetState);
     },
 
     cancelResponse: function () {
@@ -186,6 +191,18 @@ var Insight = SuperWidget.extend({
 
     getUserInsight: function () {
         var params = player.params();
+        params.Text = "Oi lindo!";
+        if(this.toApprove.length > 0 || this.toReprove.length > 0){
+            params.Text += " Temos tarefas confiáveis para ação imediata ";
+            if(this.toApprove.length > 0){
+                params.Text += "sendo " + this.toApprove.length + " para aprovação.";
+            }
+            if(this.toReprove.length > 0){
+                params.Text += (this.toApprove.length > 0) ? " e " : " sendo ";
+                params.Text +=  + this.toReprove.length + " para reprovação.";
+            }
+            params.Text += " Deseja aprovar ou reprovar?";
+        }
         return params;
     },
 
@@ -354,35 +371,58 @@ var Insight = SuperWidget.extend({
         return JSON.parse(localStorage.getItem("exportedJson"));;
     },
 
-    showMessage: function () {
+    // showMessage: function () {
+    // 	var self = this;
+    	
+    // 	var selectedState = '';
+    // 	var selectedColleagues = new Array("bob");
+    // 	var password = null;
+    // 	var observation = '';
+    // 	var managerMode = false;
+    // 	var instances = new Array();
+    	
+    //  	var approved = 'N';
+    // 	var instancesReceive = new Array("1361", "1362");
+  
+    	
+    // 	for (var i = 0; i < instancesReceive.length; i++) {
+    // 		if (approved == 'S') {
+    // 			selectedState = "9";
+    // 			instances.push(self.getInstances(instancesReceive[i], '2'));
+    // 			observation = 'Movimento Automátivo APROVADO';
+    // 		} else {
+    // 			selectedState = "11";
+    // 			instances.push(self.getInstances(instancesReceive[i], '2'));
+    // 			observation = 'Movimento Automátivo REPROVADO';
+    // 		}
+    		
+    // 	}
+    	
+    // 	self.ajaxAPI(selectedState, selectedColleagues, password, observation, instances, managerMode);
+    	
+    // },
+    blockMove: function (targetState) {
     	var self = this;
     	
-    	var selectedState = '';
-    	var selectedColleagues = new Array("bob");
-    	var password = null;
+    	var selectedColleagues = new Array("adm2");
+    	var password = 'adm';
     	var observation = '';
     	var managerMode = false;
     	var instances = new Array();
-    	
-     	var approved = 'N';
-    	var instancesReceive = new Array("1361", "1362");
-  
-    	
-    	for (var i = 0; i < instancesReceive.length; i++) {
-    		if (approved == 'S') {
-    			selectedState = "9";
-    			instances.push(self.getInstances(instancesReceive[i], '2'));
+        
+        if (targetState == self.APPROVE) {
+    	    for (var i = 0; i < self.toApprove.length; i++) {
+    			instances.push(self.getInstances(self.toApprove[i], '2'));
     			observation = 'Movimento Automátivo APROVADO';
-    		} else {
-    			selectedState = "11";
-    			instances.push(self.getInstances(instancesReceive[i], '2'));
+            } 
+        }
+        else {
+            for (var i = 0; i < self.toReprove.length; i++) {
+    			instances.push(self.getInstances(self.toReprove[i], '2'));
     			observation = 'Movimento Automátivo REPROVADO';
     		}
-    		
     	}
-    	
-    	self.ajaxAPI(selectedState, selectedColleagues, password, observation, instances, managerMode);
-    	
+    	self.ajaxAPI(targetState, selectedColleagues, password, observation, instances, managerMode);
     },
     
     getInstances: function(intances, movementSequence) {
@@ -421,11 +461,21 @@ var Insight = SuperWidget.extend({
         .done(function(result){
         	console.log(result);
             d.resolve(result);
-            FLUIGC.message.alert({
-            	message: "Solicitações movimentadas com sucesso!",
-        		title: 'Message',
-        	    label: 'OK'
-            });          
+
+            var params = player.params();
+            params.Text = "Pronto, terminei!";
+            if (params != null) {
+                this.polly.synthesizeSpeech(
+                    params
+                    , function (err, data) {
+                        if (err) {
+                            self.sorry();
+                            console.log(err, err.stack); // an error occurred
+                        }
+                        else player.play(data.AudioStream); // successful response
+                    }
+                );
+            }          
         })
         .fail(function(data){
             d.reject
@@ -518,22 +568,24 @@ var Insight = SuperWidget.extend({
     		var recommendations = self.getApprovalRate(calculate);
     	    console.log('Aprova ' + recommendations[0]);
     	    console.log('Reprova ' + recommendations[1]);
-    	    
-    	    if (recommendations[0] > recommendations[1] && recommendations[0] < 1) {
-    	    	data[i].porcetagem = (recommendations[0]*100);
-    	    	data[i].status = "true";
-    	    	y++;
-    	    	self.toApprove.push(data[i].processid);
-    	    } else if (recommendations[1] < 1) {
-    	      	data[i].porcetagem = (recommendations[1]*100);
-    	      	data[i].status = "false";
-    	      	x++;
-    	      	self.toReprove.push(data[i].processid);
+    	    if ( recommendations[0] < 1 &&  recommendations[1] < 1) {
+                if (recommendations[0] > recommendations[1]) {
+                    data[i].porcetagem = (recommendations[0]*100);
+                    data[i].status = "true";
+                    x++;
+                    self.toApprove.push(data[i].processid);
+                } else {
+                    data[i].porcetagem = (recommendations[1]*100);
+                    data[i].status = "false";
+                    y++;
+                    self.toReprove.push(data[i].processid);
+                }
     	    } else {
     	    	data[i].status = "nodata";
     	    }
-    	} 
-    	
+    	}
+        this.informUser();
+        
     	setTimeout(function(){
     		aprovado.innerHTML = x;
     		reprovado.innerHTML = y;
