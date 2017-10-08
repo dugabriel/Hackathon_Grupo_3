@@ -28,7 +28,7 @@
     <processDefinitionVersionPK>
       <companyId>1</companyId>
       <processId>aprovacao-compra</processId>
-      <version>1</version>
+      <version>3</version>
     </processDefinitionVersionPK>
     <versionDescription></versionDescription>
     <formId>5</formId>
@@ -501,7 +501,7 @@
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>aprovacao-compra</processId>
-        <version>1</version>
+        <version>3</version>
         <linkSequence>6</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -512,7 +512,7 @@
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>aprovacao-compra</processId>
-        <version>1</version>
+        <version>3</version>
         <linkSequence>14</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -523,7 +523,7 @@
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>aprovacao-compra</processId>
-        <version>1</version>
+        <version>3</version>
         <linkSequence>15</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -538,10 +538,91 @@
       <processFormFieldPK>
         <companyId>1</companyId>
         <processId>aprovacao-compra</processId>
+        <fieldId>aprova</fieldId>
+      </processFormFieldPK>
+      <fieldDescription>aprova</fieldDescription>
+      <slotId>1</slotId>
+    </ProcessFormField>
+    <ProcessFormField>
+      <processFormFieldPK>
+        <companyId>1</companyId>
+        <processId>aprovacao-compra</processId>
+        <fieldId>aprovador</fieldId>
+      </processFormFieldPK>
+      <fieldDescription>aprovador</fieldDescription>
+      <slotId>2</slotId>
+    </ProcessFormField>
+    <ProcessFormField>
+      <processFormFieldPK>
+        <companyId>1</companyId>
+        <processId>aprovacao-compra</processId>
+        <fieldId>cnpj</fieldId>
+      </processFormFieldPK>
+      <fieldDescription>cnpj</fieldDescription>
+      <slotId>3</slotId>
+    </ProcessFormField>
+    <ProcessFormField>
+      <processFormFieldPK>
+        <companyId>1</companyId>
+        <processId>aprovacao-compra</processId>
+        <fieldId>datax</fieldId>
+      </processFormFieldPK>
+      <fieldDescription>datax</fieldDescription>
+      <slotId>4</slotId>
+    </ProcessFormField>
+    <ProcessFormField>
+      <processFormFieldPK>
+        <companyId>1</companyId>
+        <processId>aprovacao-compra</processId>
         <fieldId>empresa</fieldId>
       </processFormFieldPK>
       <fieldDescription>empresa</fieldDescription>
-      <slotId>1</slotId>
+      <slotId>5</slotId>
+    </ProcessFormField>
+    <ProcessFormField>
+      <processFormFieldPK>
+        <companyId>1</companyId>
+        <processId>aprovacao-compra</processId>
+        <fieldId>obs</fieldId>
+      </processFormFieldPK>
+      <fieldDescription>obs</fieldDescription>
+      <slotId>6</slotId>
+    </ProcessFormField>
+    <ProcessFormField>
+      <processFormFieldPK>
+        <companyId>1</companyId>
+        <processId>aprovacao-compra</processId>
+        <fieldId>processid</fieldId>
+      </processFormFieldPK>
+      <fieldDescription>processid</fieldDescription>
+      <slotId>7</slotId>
+    </ProcessFormField>
+    <ProcessFormField>
+      <processFormFieldPK>
+        <companyId>1</companyId>
+        <processId>aprovacao-compra</processId>
+        <fieldId>produto</fieldId>
+      </processFormFieldPK>
+      <fieldDescription>produto</fieldDescription>
+      <slotId>8</slotId>
+    </ProcessFormField>
+    <ProcessFormField>
+      <processFormFieldPK>
+        <companyId>1</companyId>
+        <processId>aprovacao-compra</processId>
+        <fieldId>requisitante</fieldId>
+      </processFormFieldPK>
+      <fieldDescription>requisitante</fieldDescription>
+      <slotId>9</slotId>
+    </ProcessFormField>
+    <ProcessFormField>
+      <processFormFieldPK>
+        <companyId>1</companyId>
+        <processId>aprovacao-compra</processId>
+        <fieldId>valor</fieldId>
+      </processFormFieldPK>
+      <fieldDescription>valor</fieldDescription>
+      <slotId>10</slotId>
     </ProcessFormField>
   </list>
   <list/>
