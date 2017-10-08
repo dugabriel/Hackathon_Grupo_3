@@ -524,11 +524,13 @@ var Insight = SuperWidget.extend({
     	    	data[i].status = "true";
     	    	y++;
     	    	self.toApprove.push(data[i].processid);
-    	    } else {
+    	    } else if (recommendations[1] < 1) {
     	      	data[i].porcetagem = (recommendations[1]*100);
     	      	data[i].status = "false";
     	      	x++;
     	      	self.toReprove.push(data[i].processid);
+    	    } else {
+    	    	data[i].status = "nodata";
     	    }
     	} 
     	
