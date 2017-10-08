@@ -16,20 +16,20 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ECMWorkflowEngineService {
-    //String fluigURL = "http://hack:8080";
-    String fluigURL = "http://fluig03.hackathon2017.fluig.io:8080";
-    String userId = "bob";
-    String userLogin = "bob";
+    //String fluigURL = "https://hack/";
+    String fluigURL = "https://grupo03.fluig.com";
+    String userId = "adm2";
+    String userLogin = "adm2";
     String userPassword = "adm";
-    String processId = "aprovacao-compra";
+    String processId = "solicitacao-compra";
     String requestComment = "Favor analisar a requisição de compra";
-    int tenantId = 1;
-    int limit = 1000;
+    int tenantId = 2;
+    int limit = 15;
     List<String> requesters = Arrays.asList("marcelo.fortunato", "andre.timm", "rafael.vanat");
     List<String> approvers = Arrays.asList("robson","mateus","maria");
     List<String> approve = Arrays.asList("s","n");
-    String cnpj = "53113791000122";
-    String empresa = "TOTVS S.A.";
+    String cnpj = "1637895020249";
+    String empresa = "VOTORANTIM CIMENTOS S/A";
 
     WorkflowEngineService workflowEngineService = instanceWorkflowEngineService();
 

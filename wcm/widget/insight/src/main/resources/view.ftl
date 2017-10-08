@@ -52,6 +52,5 @@
     <div>
         <button type="button" class="btn btn-default" data-show-message>${i18n.getTranslation('hello.button.showMessage')}</button>
     </div>
-
-
+    
 </div>

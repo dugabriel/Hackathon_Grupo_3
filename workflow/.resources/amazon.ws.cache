@@ -2,20 +2,12 @@
 <java version="1.8.0_121" class="java.beans.XMLDecoder">
  <object class="java.util.HashMap">
   <void method="put">
-   <string>volume</string>
-   <array class="java.lang.String" length="1">
-    <void index="0">
-     <string>Default</string>
-    </void>
-   </array>
-  </void>
-  <void method="put">
    <string>fichario</string>
    <object class="java.util.ArrayList">
     <void method="add">
      <object class="com.totvs.tds.ecm.foundation.ws.DocumentDto">
       <void property="UUID">
-       <string>939AB69B-E0F7-465D-88E2-7DAB98AA3A98</string>
+       <string>7C08D6D7-10FE-4ECF-AFDF-728B087536FA</string>
       </void>
       <void property="accessCount">
        <int>0</int>
@@ -27,15 +19,15 @@
        <string>meeting</string>
       </void>
       <void property="colleagueId">
-       <string>fluig</string>
+       <string>adm2</string>
       </void>
       <void property="companyId">
-       <int>1</int>
+       <int>2</int>
       </void>
       <void property="createDate">
        <object class="com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl">
         <void property="day">
-         <int>5</int>
+         <int>8</int>
         </void>
         <void property="hour">
          <int>0</int>
@@ -81,7 +73,7 @@
       <void property="expirationDate">
        <object class="com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl">
         <void property="day">
-         <int>5</int>
+         <int>8</int>
         </void>
         <void property="hour">
          <int>0</int>
@@ -115,7 +107,7 @@
       <void property="lastModifiedDate">
        <object class="com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl">
         <void property="day">
-         <int>5</int>
+         <int>8</int>
         </void>
         <void property="hour">
          <int>0</int>
@@ -147,7 +139,7 @@
        <float>0.240287</float>
       </void>
       <void property="publisherId">
-       <string>fluig</string>
+       <string>adm2</string>
       </void>
       <void property="relatedFiles">
        <string>FLUIGADHOC.html FLUIGADHOC.js FLUIGADHOC.css FLUIGADHOC1.png FLUIGADHOC2.png FLUIGADHOC3.png FLUIGADHOC4.png FLUIGADHOC.properties FLUIGADHOC_en_US.properties FLUIGADHOC_es.properties FLUIGADHOC_pt_BR.properties</string>
@@ -158,7 +150,7 @@
       <void property="validationStartDate">
        <object class="com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl">
         <void property="day">
-         <int>5</int>
+         <int>8</int>
         </void>
         <void property="hour">
          <int>0</int>
@@ -194,7 +186,7 @@
     <void method="add">
      <object class="com.totvs.tds.ecm.foundation.ws.DocumentDto">
       <void property="UUID">
-       <string>C13B39CC-175B-490A-82AA-F299ADF39A8C</string>
+       <string>4BA5500D-6D90-407A-9AC5-70C2151F00D0</string>
       </void>
       <void property="accessCount">
        <int>0</int>
@@ -206,15 +198,15 @@
        <string>activity</string>
       </void>
       <void property="colleagueId">
-       <string>fluig</string>
+       <string>adm2</string>
       </void>
       <void property="companyId">
-       <int>1</int>
+       <int>2</int>
       </void>
       <void property="createDate">
        <object class="com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl">
         <void property="day">
-         <int>5</int>
+         <int>8</int>
         </void>
         <void property="hour">
          <int>0</int>
@@ -260,7 +252,7 @@
       <void property="expirationDate">
        <object class="com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl">
         <void property="day">
-         <int>5</int>
+         <int>8</int>
         </void>
         <void property="hour">
          <int>0</int>
@@ -294,7 +286,7 @@
       <void property="lastModifiedDate">
        <object class="com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl">
         <void property="day">
-         <int>5</int>
+         <int>8</int>
         </void>
         <void property="hour">
          <int>0</int>
@@ -326,7 +318,7 @@
        <float>0.236915</float>
       </void>
       <void property="publisherId">
-       <string>fluig</string>
+       <string>adm2</string>
       </void>
       <void property="relatedFiles">
        <string>FLUIGADHOCPROCESS.html FLUIGADHOCPROCESS.js FLUIGADHOCPROCESS.css FLUIGADHOCPROCESS1.png FLUIGADHOCPROCESS2.png FLUIGADHOCPROCESS.properties FLUIGADHOCPROCESS_en_US.properties FLUIGADHOCPROCESS_es.properties FLUIGADHOCPROCESS_pt_BR.properties</string>
@@ -337,7 +329,7 @@
       <void property="validationStartDate">
        <object class="com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl">
         <void property="day">
-         <int>5</int>
+         <int>8</int>
         </void>
         <void property="hour">
          <int>0</int>
@@ -373,7 +365,7 @@
     <void method="add">
      <object class="com.totvs.tds.ecm.foundation.ws.DocumentDto">
       <void property="UUID">
-       <string>BF7F9268-54D8-4FB8-AC1B-ED8CCC3854E4</string>
+       <string>CB75D462-C162-4224-A081-9995EB2C78AF</string>
       </void>
       <void property="accessCount">
        <int>0</int>
@@ -382,15 +374,15 @@
        <string></string>
       </void>
       <void property="colleagueId">
-       <string>fluig</string>
+       <string>adm2</string>
       </void>
       <void property="companyId">
-       <int>1</int>
+       <int>2</int>
       </void>
       <void property="createDate">
        <object class="com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl">
         <void property="day">
-         <int>7</int>
+         <int>8</int>
         </void>
         <void property="hour">
          <int>0</int>
@@ -413,7 +405,7 @@
        </object>
       </void>
       <void property="datasetName">
-       <string>compras</string>
+       <string></string>
       </void>
       <void property="documentDescription">
        <string>solicitacao-compra</string>
@@ -431,12 +423,12 @@
        <string>4</string>
       </void>
       <void property="documentTypeId">
-       <string></string>
+       <string>Contratos</string>
       </void>
       <void property="expirationDate">
        <object class="com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl">
         <void property="day">
-         <int>7</int>
+         <int>8</int>
         </void>
         <void property="hour">
          <int>0</int>
@@ -473,7 +465,7 @@
       <void property="lastModifiedDate">
        <object class="com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl">
         <void property="day">
-         <int>7</int>
+         <int>8</int>
         </void>
         <void property="hour">
          <int>0</int>
@@ -502,21 +494,21 @@
        <string>solicitacao-compra.html</string>
       </void>
       <void property="phisicalFileSize">
-       <float>0.00198269</float>
+       <float>0.00197983</float>
       </void>
       <void property="publisherId">
-       <string>fluig</string>
+       <string>adm2</string>
       </void>
       <void property="relatedFiles">
        <string>solicitacao-compra.html</string>
       </void>
       <void property="topicId">
-       <int>0</int>
+       <int>1</int>
       </void>
       <void property="validationStartDate">
        <object class="com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl">
         <void property="day">
-         <int>7</int>
+         <int>8</int>
         </void>
         <void property="hour">
          <int>0</int>
@@ -560,66 +552,31 @@
    </array>
   </void>
   <void method="put">
-   <string>camposFormulario, documentoId = 5</string>
-   <array class="java.lang.String" length="10">
-    <void index="0">
-     <string>aprova</string>
-    </void>
-    <void index="1">
-     <string>aprovador</string>
-    </void>
-    <void index="2">
-     <string>cnpj</string>
-    </void>
-    <void index="3">
-     <string>datax</string>
-    </void>
-    <void index="4">
-     <string>empresa</string>
-    </void>
-    <void index="5">
-     <string>obs</string>
-    </void>
-    <void index="6">
-     <string>processid</string>
-    </void>
-    <void index="7">
-     <string>produto</string>
-    </void>
-    <void index="8">
-     <string>requisitante</string>
-    </void>
-    <void index="9">
-     <string>valor</string>
-    </void>
-   </array>
-  </void>
-  <void method="put">
    <string>processosServidor</string>
    <object class="java.util.ArrayList">
     <void method="add">
      <object class="com.totvs.tds.ecm.foundation.ws.ProcessDefinitionDto">
       <void property="companyId">
-       <int>1</int>
-      </void>
-      <void property="processDescription">
-       <string>aprovacao-compra</string>
-      </void>
-      <void property="processId">
-       <string>aprovacao-compra</string>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="com.totvs.tds.ecm.foundation.ws.ProcessDefinitionDto">
-      <void property="companyId">
-       <int>1</int>
+       <int>2</int>
       </void>
       <void property="processDescription">
        <string>Listar Tarefas</string>
       </void>
       <void property="processId">
        <string>FLUIGADHOC</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="com.totvs.tds.ecm.foundation.ws.ProcessDefinitionDto">
+      <void property="companyId">
+       <int>2</int>
+      </void>
+      <void property="processDescription">
+       <string>aprovacao-compra</string>
+      </void>
+      <void property="processId">
+       <string>solicitacao-compra</string>
       </void>
      </object>
     </void>

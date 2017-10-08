@@ -13,17 +13,18 @@ var Insight = SuperWidget.extend({
 
     //método iniciado quando a widget é carregada
     init: function () {
-        
         var self = this;
     	
-    	var x = 60;
+        this.getOpenProcess();
+        
+    	/*var x = 60;
     	var y = 40;
     	
     	setTimeout(function(){
     		aprovado.innerHTML = x;
     		reprovado.innerHTML = y;
     	}, 200);
-
+    	 */
         this.ia();
 
         this.polly = new AWS.Polly({ apiVersion: '2016-06-10' });
@@ -48,6 +49,42 @@ var Insight = SuperWidget.extend({
                 self.listen();
             }
         });
+    },
+    
+    getOpenProcess: function(){
+    	  var self = this;
+          var param = JSON.stringify(
+              {
+                  "name" : "ds_sql_fluig_consulta",
+                  "fields": ["select * from ml002004 where aprova is null;"],
+                  "constraints" : []
+              }
+          );
+          var dataset = null;
+          $.ajax({
+  			url: '/api/public/ecm/dataset/datasets',
+  			dataType: 'json',
+  			contentType: 'application/json',
+  			type: 'POST',
+  			async: false,
+  			data: param,
+  			success:function(data, status, xhr){
+                  self.resolveProcess(data.content.values);
+  			},
+  			fail: function(xhr, status, error){
+  				console.log('fail',error);
+  			},
+  			statusCode:{
+  				500: function(err) {
+  					console.log('fail',err);
+  				}
+  			}
+          });
+    },
+    
+    resolveProcess : function(data){
+    	
+    	
     },
 
     // Capturamos a ação do click no botão e iniciamos a gravação ou a paramos
