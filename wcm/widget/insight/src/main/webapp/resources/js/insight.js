@@ -203,7 +203,10 @@ var Insight = SuperWidget.extend({
                 params.Text += (this.toApprove.length > 0) ? " e " : " sendo ";
                 params.Text +=  + this.toReprove.length + " para reprovação.";
             }
-            params.Text += " Deseja aprovar ou reprovar?";
+            params.Text += " Deseja ";
+            params.Text += (this.toApprove.length > 0) ? "aprovar " : "";
+            params.Text += (this.toApprove.length > 0 && this.toReprove.length > 0) ? "aprovar " : "";
+            params.Text += (this.toReprove.length > 0) ? "reprovar " : "";
         }
         return params;
     },
@@ -467,7 +470,7 @@ var Insight = SuperWidget.extend({
             var params = player.params();
             params.Text = "Pronto, terminei!";
             if (params != null) {
-                this.polly.synthesizeSpeech(
+                that.polly.synthesizeSpeech(
                     params
                     , function (err, data) {
                         if (err) {
@@ -630,7 +633,7 @@ var Insight = SuperWidget.extend({
         		} else if (text == "false") {
         			$(this).html("<span class='fs-xs-space fluigicon fluigicon-arrow-down fluigicon-sm'></span>");
         		}else {
-        			$(this).html("<span class='fs-xs-space fluigicon fluigicon-uncheked fluigicon-sm'></span>");
+        			$(this).html("<span class='fs-xs-space fluigicon fluigicon-unchecked fluigicon-sm'></span>");
         		}
         	});
 
