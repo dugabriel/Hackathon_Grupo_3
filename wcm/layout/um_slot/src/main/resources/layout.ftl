@@ -20,11 +20,6 @@
             <div id="visualizacaoPagina" class="clearfix">
             </#if>
 
-                <!-- Titulo da página -->
-                <div class="slotfull layout-1-1">
-                    <span class="titleArea">${i18n.getTranslation('wcm.layoutsimples.title')}</span>
-                    <h2 class="pageTitle">${pageTitle}</h2>
-                </div>
 
                 <!-- Slot 1 -->
                 <div class="editable-slot slotfull layout-1-1" id="slotFull1">
