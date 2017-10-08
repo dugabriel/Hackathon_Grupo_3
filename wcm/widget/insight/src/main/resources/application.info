@@ -13,16 +13,8 @@ view.file=view.ftl
 edit.file=edit.ftl
 locale.file.base.name=insight
 application.resource.js.1=/resources/js/aws-sdk.min.js
-<<<<<<< HEAD
 application.resource.js.2=/resources/js/synaptic.min.js
 application.resource.js.3=/resources/js/config.js
 application.resource.js.4=/resources/js/insight.js
 application.resource.js.5=/resources/js/audio.js
 application.resource.js.6=/resources/js/voice.js
-=======
-application.resource.js.2=/resources/js/config.js
-application.resource.js.3=/resources/js/insight.js
-application.resource.js.4=/resources/js/audio.js
-application.resource.js.5=/resources/js/synaptic.min.js
-application.resource.js.5=/resources/js/voice.js
->>>>>>> e1c9ba6096a5f676d907bc2eea8bc30bd08713b8
