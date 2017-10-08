@@ -4,6 +4,11 @@ var Insight = SuperWidget.extend({
 
     APPROVE: "5",
     REPROVE: "6",
+    
+    toApprove: [],
+    toReprove: [],
+    
+    
 
     netWork: new synaptic.Architect.Perceptron(3,18,2),
     importNetwork: null,
@@ -15,22 +20,14 @@ var Insight = SuperWidget.extend({
     init: function () {
         var self = this;
     	
-   
-    	/*var x = 60;
-    	var y = 40;
-    	
-    	setTimeout(function(){
-    		aprovado.innerHTML = x;
-    		reprovado.innerHTML = y;
-    	}, 200);
-    	 */
+  
         this.ia();
 
-        //this.polly = new AWS.Polly({ apiVersion: '2016-06-10' });
-       // this.informUser();
+        this.polly = new AWS.Polly({ apiVersion: '2016-06-10' });
+        this.informUser();
 
-        //this.voice = listener.initialize(this);
-       // this.bindKeyboard();
+        this.voice = listener.initialize(this);
+        this.bindKeyboard();
     },
 
     bindings: {
@@ -453,7 +450,7 @@ var Insight = SuperWidget.extend({
 			    var template = 'datatable_risco';
 				var headerDatatable = [
 			        {
-			        	'title': 'Processo ID',
+			        	'title': 'Processo',
 			        	'size' : 'col-md-1'
 			        },
 			        {
@@ -526,10 +523,12 @@ var Insight = SuperWidget.extend({
     	    	data[i].porcetagem = (recommendations[0]*100);
     	    	data[i].status = "true";
     	    	y++;
+    	    	self.toApprove.push(data[i].processid);
     	    } else {
     	      	data[i].porcetagem = (recommendations[1]*100);
     	      	data[i].status = "false";
     	      	x++;
+    	      	self.toReprove.push(data[i].processid);
     	    }
     	} 
     	
