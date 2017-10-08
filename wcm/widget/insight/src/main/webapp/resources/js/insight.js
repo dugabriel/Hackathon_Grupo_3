@@ -210,7 +210,7 @@ var Insight = SuperWidget.extend({
             }
             params.Text += " Deseja ";
             params.Text += (this.toApprove.length > 0) ? "aprovar " : "";
-            params.Text += (this.toApprove.length > 0 && this.toReprove.length > 0) ? "aprovar " : "";
+            params.Text += (this.toApprove.length > 0 && this.toReprove.length > 0) ? "ou " : "";
             params.Text += (this.toReprove.length > 0) ? "reprovar " : "";
         }
         else params.Text = "Sem tarefas para ação automática.";
